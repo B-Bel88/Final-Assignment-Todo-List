@@ -6,6 +6,7 @@ function handelSubmitForm(e) {
     e.preventDefault();
     let input = document.querySelector('input');
     if (input.value != '')
+        ToDoListApiUrl(input.value);
         addTodo(input.value);
     input.value = '';
 }
