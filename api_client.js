@@ -1,7 +1,7 @@
 const ToDoListApiUrl = "http://localhost:3000/";
 const information = { description: "koop melk"};
 
-async function ToDoList() {
+async function getData() {
   try {
     const response = await fetch(ToDoListApiUrl, {
       method: "GET",
@@ -17,31 +17,46 @@ async function ToDoList() {
   }
 }
 
-async function postTodo() {
-  const data = { description: input.value, done: false };
-  try {
-    const response = await fetch(ToDoListApiUrl, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
+fetch(ToDoListApiUrl, {
+  method: "POST",
+  headers: {
+      "Content-Type": "application/json",
+  },
+      body: JSON.stringify(information),
+})
+  .then(response => response.json())
+      .then(information => {
+          console.log('Success:', information);
+  })
+  .catch((error) => {
+      console.error('Error:', error);
+});
+
+
+async function deleteTodoData(id) {
+  const deleteUrl = deleteTodoData + "" + id;
+  await fetch(deleteUrl, {
+    method: "DELETE",
+    headers: {
         "Content-Type": "application/json",
-      },
-    });
-    const postedTodo = await response.json();
-    console.log(postedTodo);
-    return postedTodo;
-  } catch (err) {
-    console.log(err);
-  }
+    }, 
+  });
+  return deleteTodoData();
 }
-  
-async function deleteTodo(id) {
-    const deleteUrl = deleteTodo + "" + id;
-    await fetch(deleteUrl, {
-      method: "DELETE",
-      headers: {
-          "Content-Type": "application/json",
-      }, 
-    });
-    return deleteTodo();
-}
+
+// const apiUrl = "https://localhost:3000";
+
+// const getTodoList = async () => {
+//     try {
+//         const result = await fetch(apiUrl, { method: 'GET' });
+//         const data = await result.json();
+//         let tasks = Object.keys(data).map(key => ({
+//             id: key,
+//             description: data[key].description,
+//             done: data[key].done
+//         }));
+//         return tasks;
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
