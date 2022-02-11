@@ -7,7 +7,7 @@ function handelSubmitForm(e) {
     let input = document.querySelector('input');
     if (input.value != '')
         getData(input.value);
-        addTodo(input.value);
+        addTodosDom(input.value);
     input.value = '';
 }
 
@@ -19,20 +19,25 @@ function handlerclick(e) {
         deleteTodo(e);
 }
 
-function addTodo(todo) {
+async function addTodosDom() {
+    const todos = await getData()
+    // console.log("todo:", todos)
     let ul = document.querySelector('ul');
-    let li = document.createElement('li');
-    
-    li.innerHTML = `
+    todos.forEach(todo => {
+        let li = document.createElement('li');
+        li.classList.add('todo-list-item');
+        ul.appendChild(li);
+        
+        li.innerHTML = `
         <input type="checkbox" class="BtnJs name="checkBtn">
         <div class="todo-item">${todo}</div>
         <button class="BtnJs" name="deleteBtn"><i class="fas fa-trash"></i></button>
     `;
-
-    li.classList.add('todo-list-item');
-    ul.appendChild(li);
+    });
+ 
 }
-
+// addTodosDom()
+    
 function checkTodo(e) {
     let item = e.target.parentNode;
     if (item.style.textDecoration == 'line-through')
@@ -46,5 +51,4 @@ function deleteTodo(e) {
     let item = e.target.parentNode;
     item.remove();
 }
-
 
