@@ -10,7 +10,7 @@ async function getData() {
       },
     });
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (err) {
     console.log(err);
@@ -32,7 +32,6 @@ fetch(ToDoListApiUrl, {
       console.error('Error:', error);
 });
 
-
 async function deleteTodoData(id) {
   const deleteUrl = deleteTodoData + "" + id;
   await fetch(deleteUrl, {
@@ -43,20 +42,3 @@ async function deleteTodoData(id) {
   });
   return deleteTodoData();
 }
-
-// const apiUrl = "https://localhost:3000";
-
-// const getTodoList = async () => {
-//     try {
-//         const result = await fetch(apiUrl, { method: 'GET' });
-//         const data = await result.json();
-//         let tasks = Object.keys(data).map(key => ({
-//             id: key,
-//             description: data[key].description,
-//             done: data[key].done
-//         }));
-//         return tasks;
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
